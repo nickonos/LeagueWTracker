@@ -1,14 +1,19 @@
-import {Client, ClientOptions} from "discord.js";
 import {UserService} from "../Services/UserService";
 
+import {Client, ClientOptions, Message, Intents} from "discord.js";
+
+
 export class DiscordBot{
-    private readonly _client : Client
+    private _client : Client
     private readonly _token : string
     private readonly _userService : UserService
 
     constructor(Token: string, userService: UserService) {
         const clientOptions : ClientOptions= {
-            intents: [],
+            intents: [
+                Intents.FLAGS.GUILD_MESSAGES,
+                Intents.FLAGS.GUILDS,
+            ],
         }
 
         this._client = new Client(clientOptions)
@@ -18,11 +23,18 @@ export class DiscordBot{
     }
 
     public Run(){
-        this._client.once('Ready', () => {
+        this._client.once("ready", () => {
             console.log("Discord Bot is Ready")
         })
 
         this._client.login(this._token)
             .then(res => console.log(res))
+
+        this._client.on("messageCreate", (message: Message) => {
+            if(message.content === "ping"){
+                console.log(message.guild)
+                message.reply("pong");
+            }
+        });
     }
 }

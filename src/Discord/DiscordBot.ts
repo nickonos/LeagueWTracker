@@ -1,15 +1,20 @@
 import {Client, ClientOptions} from "discord.js";
+import {UserService} from "../Services/UserService";
 
 export class DiscordBot{
     private readonly _client : Client
     private readonly _token : string
-    constructor(Token: string) {
+    private readonly _userService : UserService
+
+    constructor(Token: string, userService: UserService) {
         const clientOptions : ClientOptions= {
             intents: [],
         }
 
         this._client = new Client(clientOptions)
         this._token = Token
+
+        this._userService = userService
     }
 
     public Run(){

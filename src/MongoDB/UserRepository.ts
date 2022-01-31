@@ -2,7 +2,7 @@ import {ConnectOptions, Model, Mongoose} from "mongoose"
 import {GetUserSchema, IUser} from "../Interfaces/IUser"
 import {IUserData} from "../Interfaces/IUserData";
 
-export class UserData implements IUserData{
+export class UserRepository implements IUserData{
 
     private readonly _user_model: Model<IUser>
 
@@ -48,6 +48,5 @@ export class UserData implements IUserData{
     public async GetUserByDiscordId(discord_id: string): Promise<IUser> {
         return await this._user_model.findOne({discord_id: discord_id})
             .then()
-
     }
 }

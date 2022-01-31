@@ -14,7 +14,7 @@ export class RiotUser{
         name: string,
         profileIconId: number,
         revisionDate: number,
-        summonerLevel: number,
+        summonerLevel: number
         )
     {
         this.id = id

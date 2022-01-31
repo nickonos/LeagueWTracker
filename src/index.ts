@@ -1,7 +1,8 @@
 import {RiotAPIClient} from "./RiotAPI/RiotAPIClient";
-import {UserData} from "./MongoDB/UserData"
+import {UserRepository} from "./MongoDB/UserRepository"
 import * as dotenv from "dotenv"
 import {DiscordBot} from "./Discord/DiscordBot";
+import {UserService} from "./Services/UserService";
 
 dotenv.config()
 
@@ -21,29 +22,11 @@ async function main(){
         console.error("DiscordToken:", DiscordToken)
     }
 
+    let userData : UserRepository = new UserRepository(MongoDBURI);
+    let riotApi : RiotAPIClient = new RiotAPIClient(RiotAPIKey)
 
-    let db : UserData = new UserData(MongoDBURI);
-
-    await db.TryCreateUser("0","1", "nickonos")
-        .then(res => console.log(res))
-
-    await db.GetUserByName("test")
-        .then(res => console.log(res))
-
-    await db.GetUserByPuuid("0")
-        .then(res => console.log(res))
-
-    /*
-    let apiClient : RiotAPIClient = new RiotAPIClient(RiotAPIKey)
-
-    apiClient.GetUser("nickonos")
-        .then(res => console.log('test')
-        )
-        .catch(err => console.error(err))
-
-
-    let discordBot : DiscordBot = new DiscordBot(DiscordToken)
+    let discordBot : DiscordBot = new DiscordBot(DiscordToken, new UserService(userData, riotApi))
     discordBot.Run()
-    */
+
 }
 

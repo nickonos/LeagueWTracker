@@ -5,8 +5,8 @@
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
     "dotenv": "^14.3.2",
+    "mongoose": "^6.1.8",
     "fs": "^0.0.1-security",
-    "mongodb": "^4.3.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.5"
   },

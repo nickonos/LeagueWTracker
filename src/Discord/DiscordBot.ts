@@ -1,9 +1,14 @@
+import {UserService} from "../Services/UserService";
+
 import {Client, ClientOptions, Message, Intents} from "discord.js";
+
 
 export class DiscordBot{
     private _client : Client
     private readonly _token : string
-    constructor(Token: string) {
+    private readonly _userService : UserService
+
+    constructor(Token: string, userService: UserService) {
         const clientOptions : ClientOptions= {
             intents: [
                 Intents.FLAGS.GUILD_MESSAGES,
@@ -13,6 +18,8 @@ export class DiscordBot{
 
         this._client = new Client(clientOptions)
         this._token = Token
+
+        this._userService = userService
     }
 
     public Run(){

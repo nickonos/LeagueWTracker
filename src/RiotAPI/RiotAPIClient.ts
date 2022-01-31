@@ -16,7 +16,7 @@ export class RiotAPIClient{
     }
 
     public async GetUser(username : string) : Promise<RiotUser>{
-        return await this._httpClient.get("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + username)
+        return await this._httpClient.get<RiotUser>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + username)
             .then(res => {
                 if (res.status < 400) {
                     return new RiotUser(

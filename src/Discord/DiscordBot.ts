@@ -4,14 +4,11 @@ import {
     Client,
     ClientOptions,
     Intents,
-    Collection,
-    ApplicationCommandDataResolvable, Interaction, CacheType
 } from "discord.js";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {ICommand} from "../Interfaces/ICommand";
-import {discordCommands} from "../Models/DiscordCommands";
 
-const guild_id = "664240820651687966"
+import {ICommand} from "../Interfaces/ICommand";
+import {GetDiscordCommands} from "./Commands/DiscordCommands";
+
 
 export class DiscordBot{
     private _client : Client
@@ -31,14 +28,14 @@ export class DiscordBot{
         this._token = Token
 
         this._userService = userService
-        this._commands = discordCommands
+        this._commands = GetDiscordCommands(userService)
     }
 
     public Run(){
         this._client.once("ready", () => {
             console.log("Discord Bot is Ready")
 
-            let guild = this._client.guilds.cache.get(guild_id)
+            let guild = this._client.guilds.cache.get(process.env.Discord_Guild ?? "")
 
             if(guild != undefined){
                 this._commands.map((cmd) => {

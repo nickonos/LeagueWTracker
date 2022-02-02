@@ -3,11 +3,15 @@ import {BaseCommandInteraction} from "discord.js";
 import {UserService} from "../../Services/UserService";
 import {getTestCommand} from "./TestCommand";
 import {GetAddCommand} from "./AddCommand";
+import { GetStartCommand } from "./StartCommand";
+import { GetOldWinsCommand } from "./GetOldWins";
 
 export function GetDiscordCommands(userService: UserService) : ICommand[]{
     return [
         getTestCommand(userService),
-        GetAddCommand()
+        GetAddCommand(),
+        GetStartCommand(),
+        GetOldWinsCommand()
     ]
 }
 
